@@ -1,14 +1,14 @@
-#!/bin/sh
-sudo apt update && sudo apt install vim git curl 
+#!/bin/bash
+echo "sudo apt update && sudo apt install vim git curl"
 
 # remove and backup the old dotfiles
-mv  ~/.vim ~/.vim-old
-mv ~/.vimrc ~/.vimrc
-mkdir ~/.vim
+[[ -f "~/.vim" ]] && ( cp ~/.vim ~/.vim_bak ) || ( touch ~/.vim; [[ -f "~/.vim_bak" ]] && cat ~/.vim_bak >> ~/.vim )
+[[ -f "~/.vimrc" ]] && ( cp ~/.vimrc ~/.vimrc_bak ) || ( touch ~/.vimrc; [[ -f "~/.vimrc.bak" ]] && cat ~/.vimrc_bak >> ~/.vimrc )
+#[[ ! -d "~/.vim" ]] && mkdir ~/.vim
 
-# cp .vimrc
-cp tools/vim/.vimrc ~/
+# add config to .vimrc for vundle
+cat tools/vim/vundle.config >> ~/.vimrc
 
 # install vim Vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
+echo "vim +PluginInstall +qall"
