@@ -1,22 +1,49 @@
 #!/bin/bash
-echo "==========================================="
-echo "Pre-request: use your own package manager to install following package" 
-echo "vim git curl"
-echo "==========================================="
 
-# remove and backup the old dotfiles
-# [[ -f "~/.vim" ]] && ( cp ~/.vim ~/.vim_bak ) || ( touch ~/.vim; [[ -f "~/.vim_bak" ]] && cat ~/.vim_bak >> ~/.vim )
-# [[ -f "~/.vimrc" ]] && ( cp ~/.vimrc ~/.vimrc_bak ) || ( touch ~/.vimrc; [[ -f "~/.vimrc.bak" ]] && cat ~/.vimrc_bak >> ~/.vimrc )
-# [[ ! -d "~/.vim" ]] && mkdir ~/.vim
-
-echo "Check if Vundle installed or not..."
-
-if [ -f "~/.vimrc" && grep -q "VundleVim/Vundle.vim" "~/.vimrc" ]; then 
-	echo "Vundle installed"
+# identify package manager
+if [ -f "/usr/bin/apt-get" ]; then
+	echo "apt-get is found"
+	PM="apt-get"
+elif [ -f "/usr/bin/yum" ]; then
+	echo "yum is found"
+	PM="yum"
+elif [ -f "/usr/bin/pacman" ]; then
+	echo "pacman is found"
+	PM="pacman"
 else
-	echo "Vundle is not installed"; echo "installing Vundle"; git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; echo "add config for vundle to .vimrc ..."; cat tools/vim/vundle.config >> ~/.vimrc ;echo "key in following command in terminal"; echo "vim +PluginInstall +qall"
+	echo "No package manager is found"
+	exit 1
 fi
 
-echo "Checking Done"
+# install vim
+echo "installing vim..."
+sudo $PM install vim
+
+# install git
+echo "installing git..."
+sudo $PM install git
+
+# install curl
+echo "installing curl..."
+sudo $PM install curl
+
+# backup old dotfiles
+echo "backup old dotfiles..."
+
+if [ -f "~/.vimrc" ]; then
+	echo "backup .vimrc"
+	mv ~/.vimrc ~/.vimrc.bak
+fi
+
+if [ -f "~/.bashrc" ]; then
+	echo "backup .bashrc"
+	mv ~/.bashrc ~/.bashrc.bak
+fi
+
+
+# install tmux
+echo "installing tmux..."
+sudo $PM install tmux
+
 
 
