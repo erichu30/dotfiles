@@ -56,6 +56,9 @@ function recoverDotfiles() {
 
 function setupBash-it() {
 	# install bash-it
+	# if bash-it is installed, skip
+	# else install bash-it
+
 	if [ -d "~/.bash_it" ]; then
 		echo "bash-it is installed"
 	else
@@ -175,6 +178,11 @@ function usage() {
 	echo "	-r, --recover		recover dotfiles"
 }
 
+# if no option pass, display usage
+if [ $# -eq 0 ]; then
+	usage
+	exit 1
+fi
 
 # if -i pass, install dotfiles
 # if -r pass, recover dotfiles
