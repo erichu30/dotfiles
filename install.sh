@@ -56,8 +56,12 @@ function recoverDotfiles() {
 
 function setupBash-it() {
 	# install bash-it
-	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-	y | ~/.bash_it/install.sh
+	if [ -d "~/.bash_it" ]; then
+		echo "bash-it is installed"
+	else
+		git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+		y | ~/.bash_it/install.sh
+	
 	source ~/.bashrc
 
 	echo "===================="
