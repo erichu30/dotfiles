@@ -66,7 +66,8 @@ function setupBash-it() {
 		y | ~/.bash_it/install.sh
 	fi
 	
-	source ~/.bashrc
+	# source bash-it
+	eval "$(cat ~/.bashrc | tail -n +10)"
 
 	echo "===================="
 	echo "use bash-it command to manage bash-it: "
