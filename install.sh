@@ -61,6 +61,7 @@ function setupBash-it() {
 	else
 		git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 		y | ~/.bash_it/install.sh
+	fi
 	
 	source ~/.bashrc
 
