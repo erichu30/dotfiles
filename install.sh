@@ -87,7 +87,7 @@ function setupBash-it() {
 function setupVim() {
 	# # install vundle
 	# git clone 
-
+	echo "===================="
 }
 
 DEVSHELL=""
@@ -122,6 +122,8 @@ function setupDevShell() {
 }
 
 function setupTmux() {
+	echo "===================="
+
 	# # install tpm
 	# git clone
 
