@@ -58,6 +58,7 @@ function setupBash-it() {
 	# install bash-it
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 	y | ~/.bash_it/install.sh
+	source ~/.bashrc
 
 	echo "===================="
 	echo "use bash-it command to manage bash-it: "
