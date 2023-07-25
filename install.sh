@@ -14,8 +14,33 @@ function identifyPackageManager() {
 		PM="brew"
 	else
 		echo "No package manager is found"
+		echo "Try to install packages manually"
 		exit 1
 	fi
+}
+
+function manuallyInstallPackage() {
+	if $1 == "vim"; then
+		echo "installing vim..."
+		sudo apt-get install vim
+	elif $1 == "git"; then
+		echo "installing git..."
+		sudo apt-get install git
+	elif $1 == "curl"; then
+		echo "installing curl..."
+		sudo apt-get install curl
+	elif $1 == "tmux"; then
+		echo "installing tmux..."
+		manuallyInstallTmux
+	else
+		echo "Unknown package: $1"
+		exit 1
+	fi
+}
+
+function manuallyInstallTmux() {
+	curl -kL  https://github.com/libevent/libevent/releases/download/release-2.1.11-stable/libevent-2.1.11-stable.tar.gz --output libevent-2.1.11-stable.tar.gz
+
 }
 
 function installPackage() {
@@ -23,6 +48,9 @@ function installPackage() {
 	for i in $packages; do
 		if [ -f "/usr/bin/$i" ]; then
 			echo "$i is installed"
+		elif "$PM" == ""; then
+			echo "Try to install packages manually due to no package manager is found"
+			exit 1
 		else
 			echo "$i is not installed"
 			echo "installing $i..."
